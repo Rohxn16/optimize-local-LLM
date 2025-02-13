@@ -18,12 +18,10 @@ class OptimizeServices():
     def get_transcript(self,url:str):
         videoId = self.trim_url(url)
         transcript = YouTubeTranscriptApi.get_transcript(videoId)
-        output = '' # extracting the transcripts' strings from the timestampped json format
-        # file = open('response.txt','w')
+        output = ''
         for x in transcript:
             sentence = x['text']
             output += f'{sentence}'
-        # file.write(output)
         return output
 
     def get_transcript_summary(self,link:str):
@@ -37,9 +35,6 @@ class OptimizeServices():
             'content':(str)(prompt)
         }])
         responsetext = response['message']['content']
-        # file = open('summary.txt', 'w')
-        # file.write(responsetext)
-        # file.close()
         cleaned_output = re.sub(r"<think>.*?</think>", "", responsetext, flags=re.DOTALL).strip()
         return cleaned_output
 
