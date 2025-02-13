@@ -1,6 +1,6 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 from ollama import chat
-from ollama import ChatResponse
+import re
 
 class OptimizeServices():
 
@@ -19,13 +19,13 @@ class OptimizeServices():
         videoId = self.trim_url(url)
         transcript = YouTubeTranscriptApi.get_transcript(videoId)
         output = '' # extracting the transcripts' strings from the timestampped json format
-        file = open('response.txt','w')
+        # file = open('response.txt','w')
         for x in transcript:
             sentence = x['text']
             output += f'{sentence}'
-        file.write(output)
+        # file.write(output)
         return output
-    
+
     def get_transcript_summary(self,link:str):
         transcript = self.get_transcript(link)
         prompt = "summarize the following text which is a YT video transcript within 10 to 20 bullet points without missing out on any vital content: " + transcript
@@ -37,13 +37,11 @@ class OptimizeServices():
             'content':(str)(prompt)
         }])
         responsetext = response['message']['content']
-        file = open('summary.txt', 'w')
-        file.write(responsetext)
-        file.close()
-        return responsetext
-
-        
-        
+        # file = open('summary.txt', 'w')
+        # file.write(responsetext)
+        # file.close()
+        cleaned_output = re.sub(r"<think>.*?</think>", "", responsetext, flags=re.DOTALL).strip()
+        return cleaned_output
 
 if __name__ == '__main__':
     context = OptimizeServices()
