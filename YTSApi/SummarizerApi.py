@@ -17,5 +17,17 @@ def summarize():
     except Exception as e:
         return jsonify({'error': str(e)})    
 
+
+@app.route('/ask', methods=['GET'])
+def ask():
+    question = request.args.get('question')
+    if not question:
+        return jsonify({'error': 'No question provided'})
+    try:
+        answer = service_context.ask_question(question)
+        return jsonify({'answer': answer})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
 if __name__ == '__main__':
     app.run(debug=True)
