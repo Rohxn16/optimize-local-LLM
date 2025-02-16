@@ -18,7 +18,7 @@ def summarize():
         return jsonify({'error': str(e)})    
 
 
-@app.route('/ask', methods=['GET'])
+@app.route('/summarize/ask', methods=['GET'])
 def ask():
     question = request.args.get('question')
     if not question:

@@ -63,7 +63,7 @@ class OptimizeServices():
         response = chat(
             model=self.payload['model'],
             messages=[
-                {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided YouTube video summary."},
+                {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided YouTube video summary. With that in mind answer the following question(s) with reference to the summary and earlier conversation in byte sized points."},
                 *self.chat_history  # Include the chat history for context
             ]
         )
