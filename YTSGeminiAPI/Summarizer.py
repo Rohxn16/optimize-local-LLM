@@ -2,7 +2,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import google.generativeai as genai
 from flask import Flask, request, jsonify
-# from flask_cors import CORS
+from flask_cors import CORS
 
 genai.configure(api_key='AIzaSyCyLyign7HC2ZaRcTak0eS3A1is13gtAbM')
 
@@ -108,6 +108,7 @@ print('------------------------------------------------')
 
 if __name__ == '__main__':
     app = Flask(__name__)
+    CORS(app)  # Enable CORS for all routes
 
     @app.route('/summarize', methods=['GET','POST'])
     def summarize():
