@@ -137,5 +137,10 @@ if __name__ == '__main__':
             return jsonify({'response': response}), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+    
+    @app.route('/', methods=['GET'])
+    def home():
+        return jsonify({'message': 'Welcome to the YTSGeminiAPIv2!'})
+    
         
     app.run(port=5000, debug=True)
