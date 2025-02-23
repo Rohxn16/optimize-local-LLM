@@ -3,8 +3,9 @@ import google.generativeai as genai
 from youtube_transcript_api import YouTubeTranscriptApi
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from dotenv import load_dotenv
 
-genai.configure(api_key='AIzaSyCyLyign7HC2ZaRcTak0eS3A1is13gtAbM')
+genai.configure(api_key=os.getenv('token'))
 
 # Create the model
 generation_config = {
@@ -89,6 +90,11 @@ def answer_endpoint():
     question = data['question']
     answer = answer_question(knowledge_base, question)
     return jsonify({'answer': answer})
+
+@app.route('/check', methods=['POST','GET'])
+def check_endpoint():
+    return jsonify({'message': 'Server is up and running!'})
+
 
 if __name__ == '__main__':
     # link = "https://www.youtube.com/watch?v=Ez_kyBS-y5w&t=4s"
