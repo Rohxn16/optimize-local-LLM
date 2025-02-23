@@ -54,9 +54,9 @@ def trim_url(url):
     video_id = url.replace('https://www.youtube.com/watch?v=', '')
     return video_id
 
-def get_transcript(url:str):
+def get_transcript(v_id:str):
     # videoId = trim_url(url)
-    transcript = YouTubeTranscriptApi.get_transcript(url)
+    transcript = YouTubeTranscriptApi.get_transcript(v_id)
     output = ''
     for x in transcript:
         sentence = x['text']
